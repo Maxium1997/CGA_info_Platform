@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Welcome, CGA Info Sys.
+{% endblock %}
+
+{% block direction_bar %}
+    Home
+{% endblock %}
+
+{% block body %}
+    <ul>
+        <li><a href="{% url 'acts' %}">海巡常用法規</a></li>
+        <li><a href="#develop">海巡常用申請表</a></li>
+    </ul>
+{% endblock %}

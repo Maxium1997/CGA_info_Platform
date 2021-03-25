@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Laws
+{% endblock %}
+
+{% block direction_bar %}
+    <a href="{% url 'index' %}">Home</a>
+    /
+    <a href="{% url 'acts' %}">海巡常用法規</a>
+    /
+    New Act
+{% endblock %}
+
+{% block body %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">submit</button>
+    </form>
+{% endblock %}

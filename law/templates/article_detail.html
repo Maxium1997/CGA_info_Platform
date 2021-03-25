@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ act }}
+{% endblock %}
+
+{% block direction_bar %}
+    <a href="{% url 'index' %}">Home</a>
+    /
+    <a href="{% url 'acts' %}">海巡常用法規</a>
+    /
+    <a href="{% url 'act_detail' act.slug %}">{{ act }}</a>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ article }}</h1>
+    <p>{{ article.content|linebreaksbr|safe }}</p>
+{% endblock %}

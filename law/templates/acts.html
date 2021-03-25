@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Laws
+{% endblock %}
+
+{% block direction_bar %}
+    <a href="{% url 'index' %}">Home</a>
+    /
+    海巡常用法規
+{% endblock %}
+
+{% block body %}
+    <ul>
+        {% for act in acts %}
+        <p>
+            <li><a href="{% url 'act_detail' act.slug %}">{{ act }}</a></li>
+        </P>
+        {% endfor %}
+
+        {% if request.user.is_superuser %}
+        <p>
+            <li><a href="{% url 'act_create' %}">+Added a new act</a></li>
+        </p>
+        {% endif %}
+    </ul>
+{% endblock %}

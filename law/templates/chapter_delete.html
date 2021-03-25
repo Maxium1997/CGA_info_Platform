@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ act }}
+{% endblock %}
+
+{% block direction_bar %}
+    <a href="{% url 'index' %}">Home</a>
+    /
+    <a href="{% url 'acts' %}">海巡常用法規</a>
+    /
+    <a href="{% url 'act_detail' act.slug %}">{{ act }}</a>
+    /
+    Delete
+{% endblock %}
+
+{% block body %}
+    <h1>{{ chapter }}</h1>
+    <p>
+        <ul>
+            {% for article in chapter.article_set.all %}
+                <li><a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a></li>
+            {% endfor %}
+        </ul>
+    </p>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <p>Are you sure to delete this chapter?</p>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-danger">Sure</button>
+            <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
+        </div>
+    </form>
+{% endblock %}

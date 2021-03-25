@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Laws
+{% endblock %}
+
+{% block direction_bar %}
+    <a href="{% url 'index' %}">Home</a>
+    /
+    <a href="{% url 'acts' %}">海巡常用法規</a>
+    /
+    <a href="{% url 'act_detail' act.slug %}">{{ act }}</a>
+    /
+    New Chapter
+{% endblock %}
+
+{% block body %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">submit</button>
+    </form>
+    <p>
+        <ul>
+            {% for chapter in act.chapter_set.all %}
+                <li>{{ chapter }}</li>
+            {% endfor %}
+        </ul>
+    </p>
+{% endblock %}
