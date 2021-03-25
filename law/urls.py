@@ -14,13 +14,13 @@ urlpatterns = [
         path('<slug>', ActDetailView.as_view(), name='act_detail'),
         path('<slug>/', include([
             path('chapter/', include([
-                path('<int:number>', ChapterDetailView.as_view(), name='chapter_detail'),
-                path('<int:number>/', include([
+                path('<number>', ChapterDetailView.as_view(), name='chapter_detail'),
+                path('<number>/', include([
                     path('delete', ChapterDeleteView.as_view(), name='chapter_delete'),
                 ])),
                 path('create', ChapterCreateView.as_view(), name='chapter_create'),
             ])),
-            path('<int:number>', ArticleDetailView.as_view(), name='article_detail')
+            path('<number>', ArticleDetailView.as_view(), name='article_detail')
         ])),
     ])),
 ]
