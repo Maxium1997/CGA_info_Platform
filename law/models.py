@@ -51,7 +51,7 @@ class Regulations(models.Model):
 class Article(models.Model):
     act = models.ForeignKey(Act, on_delete=models.CASCADE, null=True, blank=False)
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, null=True, blank=False)
-    number = models.PositiveIntegerField(null=False, blank=False)
+    number = models.CharField(max_length=5, null=False, blank=False)
     content = models.TextField()
     source_url = models.URLField(default=None, null=True, blank=True)
 
