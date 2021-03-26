@@ -51,6 +51,7 @@ class Regulations(models.Model):
 class Article(models.Model):
     act = models.ForeignKey(Act, on_delete=models.CASCADE, null=True, blank=False)
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, null=True, blank=False)
+    priority = models.PositiveIntegerField(default=1, null=False, blank=False)
     number = models.CharField(max_length=5, null=False, blank=False)
     content = models.TextField()
     source_url = models.URLField(default=None, null=True, blank=True)
@@ -59,4 +60,4 @@ class Article(models.Model):
         return self.act.__str__() + ' 第' + str(self.number) + '條'
 
     class Meta:
-        ordering = ['act', 'chapter', 'number']
+        ordering = ['act', 'chapter', 'priority']

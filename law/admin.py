@@ -17,4 +17,4 @@ class ChapterAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'act', 'chapter', 'number', 'source_url']
+    list_display = ['id', 'act', 'chapter', 'priority', 'number', 'source_url']
