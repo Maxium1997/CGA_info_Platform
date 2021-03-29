@@ -14,36 +14,61 @@
 {% endblock %}
 
 {% block body %}
-    <ul>
-        <p>
-            <li>source URL：<a href="{{ act.source_url }}">{{ act.source_url }}</a></li>
-        </p>
+    <div class="container border-left border-success p-4 m-5">
+        <div class="row">
+            <div class="col-12">
+                Name：{{ act }}
+            </div>
+            <div class="col-12">
+                source URL：<a href="{{ act.source_url }}">{{ act.source_url }}</a>
+            </div>
+        </div>
+    </div>
 
-        {% if act.chapter_set.count != 0 %}
-            {% for chapter in act.chapter_set.all %}
-                <p>
-                    <li>
+    <div class="container border font-weight-light p-sm-4 m-sm-5">
+        <div class="row">
+            {% if act.chapter_set.count != 0 %}
+                {% for chapter in act.chapter_set.all %}
+                    <div class="col-12">
                         <a href="{% url 'chapter_detail' act.slug chapter.number %}">{{ chapter }}</a>
                         {% if request.user.is_superuser %}
                         <a href="{% url 'chapter_delete' act.slug chapter.number %}">-</a>
                         {% endif %}
-                    </li>
-                    <ul>
-                        {% for article in chapter.article_set.all %}
-                            <li><a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </p>
-            {% endfor %}
-        {% elif act.article_set.count != 0 %}
-            {% for article in act.article_set.all %}
-                <p>
-                    <li>
-                        <a href="{% url 'article_detail' act.slug article.number %}">{{ article }}</a>
-                    </li>
-                </p>
-            {% endfor %}
-        {% endif %}
+                    </div>
+
+                    <div class="container m-5">
+                        <div class="row">
+                            {% for article in chapter.article_set.all %}
+                                <div class="col-lg-2">
+                                    <a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a>
+                                </div>
+                                <div class="col-lg-10">
+                                    {{ article.content|linebreaks|safe }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% elif act.article_set.count != 0 %}
+                {% for article in act.article_set.all %}
+                    <div class="container m-3">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a>
+                            </div>
+                            <div class="col-lg-11">
+                                {{ article.content|linebreaks|safe }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <ul>
+
+
 
         {% if request.user.is_superuser %}
             <p>

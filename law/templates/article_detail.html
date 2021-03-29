@@ -20,6 +20,25 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ article }}</h1>
-    <p>{{ article.content|linebreaksbr|safe }}</p>
+    <div class="container border-left border-success p-4 m-5">
+        <div class="row">
+            <div class="col-12">
+                Name：{{ act }}
+            </div>
+            <div class="col-12">
+                source URL：<a href="{{ act.source_url }}">{{ act.source_url }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container border font-weight-light p-sm-4 m-sm-5">
+        <div class="row">
+            <div class="col-12 m-4">
+                {{ article }}
+            </div>
+            <div class="col-12 m-4">
+                {{ article.content|linebreaks|safe }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

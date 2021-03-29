@@ -10,15 +10,25 @@
 {% endblock %}
 
 {% block body %}
-    <ul>
-        <p>
-            <li><a href="{% url 'acts' %}">海巡常用法規</a></li>
-        </p>
-        <p>
-            <li><a href="#usual_form">海巡常用申請表</a></li>
-        </p>
-        <p>
-            <li><a href="#common_case_SOP">海巡常見問題處理程序</a></li>
-        </p>
-    </ul>
+    <div class="card m-2" style="width: 18rem;">
+        <div class="card-body">
+            <img src="{% static 'pic/search.jpg' %}" class="card-img-top" alt="...">
+            <h5 class="card-title">海巡常用法規</h5>
+            <a href="{% url 'acts' %}" class="btn btn-primary">Check it out!</a>
+        </div>
+    </div>
+    <div class="card m-2" style="width: 18rem;">
+        <div class="card-body">
+            <img src="{% static 'pic/application_form.jpg' %}" class="card-img-top" alt="...">
+            <h5 class="card-title">海巡常用申請表</h5>
+            <a href="#application_form" class="btn btn-primary">Check it out!</a>
+        </div>
+    </div>
+    <div class="card m-2" style="width: 18rem;">
+        <div class="card-body">
+            <img src="{% static 'pic/think.jpg' %}" class="card-img-top" alt="...">
+            <h5 class="card-title">海巡常見問題處理程序</h5>
+            <a href="#SOP" class="btn btn-primary">Check it out!</a>
+        </div>
+    </div>
 {% endblock %}
