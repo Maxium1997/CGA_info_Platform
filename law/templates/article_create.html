@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    {{ act }}
+    Laws
 {% endblock %}
 
 {% block direction_bar %}
@@ -11,15 +11,21 @@
     <a href="{% url 'acts' %}">海巡常用法規</a>
     /
     <a href="{% url 'act_detail' act.slug %}">{{ act }}</a>
-    {% if article.chapter %}
     /
-    <a href="{% url 'chapter_detail' act.slug article.chapter.number %}">{{ article.chapter }}</a>
-    {% endif %}
-    /
-    {{ article }}
+    New Article
 {% endblock %}
 
 {% block body %}
-    <h1>{{ article }}</h1>
-    <p>{{ article.content|linebreaksbr|safe }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">submit</button>
+    </form>
+    <p>
+        <ul>
+            {% for article in act.article_set.all %}
+                <li>{{ article }}</li>
+            {% endfor %}
+        </ul>
+    </p>
 {% endblock %}

@@ -15,25 +15,42 @@
 
 {% block body %}
     <ul>
-        {% for chapter in act.chapter_set.all %}
-            <p>
-                <li>
-                    <a href="{% url 'chapter_detail' act.slug chapter.number %}">{{ chapter }}</a>
-                    {% if request.user.is_superuser %}
-                    <a href="{% url 'chapter_delete' act.slug chapter.number %}">-</a>
-                    {% endif %}
-                </li>
-                <ul>
-                    {% for article in chapter.article_set.all %}
-                        <li><a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a></li>
-                    {% endfor %}
-                </ul>
-            </p>
-        {% endfor %}
+        <p>
+            <li>source URL：<a href="{{ act.source_url }}">{{ act.source_url }}</a></li>
+        </p>
+
+        {% if act.chapter_set.count != 0 %}
+            {% for chapter in act.chapter_set.all %}
+                <p>
+                    <li>
+                        <a href="{% url 'chapter_detail' act.slug chapter.number %}">{{ chapter }}</a>
+                        {% if request.user.is_superuser %}
+                        <a href="{% url 'chapter_delete' act.slug chapter.number %}">-</a>
+                        {% endif %}
+                    </li>
+                    <ul>
+                        {% for article in chapter.article_set.all %}
+                            <li><a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </p>
+            {% endfor %}
+        {% elif act.article_set.count != 0 %}
+            {% for article in act.article_set.all %}
+                <p>
+                    <li>
+                        <a href="{% url 'article_detail' act.slug article.number %}">{{ article }}</a>
+                    </li>
+                </p>
+            {% endfor %}
+        {% endif %}
 
         {% if request.user.is_superuser %}
             <p>
                 <li><a href="{% url 'chapter_create' act.slug %}">+Added a new chapter</a></li>
+            </p>
+            <p>
+                <li><a href="{% url 'article_create' act.slug %}">+Added a new article</a></li>
             </p>
         {% endif %}
     </ul>

@@ -12,6 +12,8 @@
     /
     <a href="{% url 'act_detail' act.slug %}">{{ act }}</a>
     /
+    <a href="{% url 'chapter_detail' act.slug chapter.number %}">{{ chapter }}</a>
+    /
     Delete
 {% endblock %}
 

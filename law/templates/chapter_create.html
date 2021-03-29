@@ -16,11 +16,6 @@
 {% endblock %}
 
 {% block body %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">submit</button>
-    </form>
     <p>
         <ul>
             {% for chapter in act.chapter_set.all %}
@@ -28,4 +23,9 @@
             {% endfor %}
         </ul>
     </p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">submit</button>
+    </form>
 {% endblock %}

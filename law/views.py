@@ -3,8 +3,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, DeleteView
 
-from .models import Act, Chapter
-from .forms import ChapterCreateForm
+from .models import Act, Chapter, Article
+from .forms import ChapterCreateForm, ArticleCreateForm
 # Create your views here.
 
 
@@ -49,7 +49,7 @@ class ChapterDetailView(DetailView):
 class ChapterCreateView(CreateView):
     model = Chapter
     template_name = 'chapter_create.html'
-    fields = ['act', 'number', 'name', 'source_url']
+    fields = ['number', 'name', 'source_url']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -57,6 +57,12 @@ class ChapterCreateView(CreateView):
         context['act'] = act
         context['form'] = ChapterCreateForm(initial={'act': act})
         return context
+
+    def form_valid(self, form):
+        act = Act.objects.get(slug=self.kwargs['slug'])
+        form.instance.act = act
+        form.save()
+        return super(ChapterCreateView, self).form_valid(form)
 
 
 @method_decorator(staff_member_required, name='dispatch')
@@ -82,7 +88,6 @@ class ActDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['act'] = self.object
-        context['articles'] = self.object.article_set.all()
         return context
 
 
@@ -95,3 +100,23 @@ class ArticleDetailView(DetailView):
         context['act'] = self.object
         context['article'] = self.object.article_set.get(number=self.kwargs['number'])
         return context
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class ArticleCreateView(CreateView):
+    model = Article
+    template_name = 'article_create.html'
+    fields = ['chapter', 'priority', 'number', 'content', 'source_url']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        act = Act.objects.get(slug=self.kwargs['slug'])
+        context['act'] = act
+        context['form'] = ArticleCreateForm(initial={'act': act})
+        return context
+    
+    def form_valid(self, form):
+        act = Act.objects.get(slug=self.kwargs['slug'])
+        form.instance.act = act
+        form.save()
+        return super(ArticleCreateView, self).form_valid(form)

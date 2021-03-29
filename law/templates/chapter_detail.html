@@ -11,15 +11,18 @@
     <a href="{% url 'acts' %}">海巡常用法規</a>
     /
     <a href="{% url 'act_detail' act.slug %}">{{ act }}</a>
+    /
+    {{ chapter }}
 {% endblock %}
 
 {% block body %}
     <h1>{{ chapter }}</h1>
-    <p>
-        <ul>
-            {% for article in chapter.article_set.all %}
+    <ul>
+        {% for article in chapter.article_set.all %}
+            <p>
                 <li><a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a></li>
-            {% endfor %}
-        </ul>
-    </p>
+            </p>
+        {% endfor %}
+    </ul>
+
 {% endblock %}
