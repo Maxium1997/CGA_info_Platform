@@ -6,15 +6,10 @@
 {% endblock %}
 
 {% block direction_bar %}
-    <a href="{% url 'index' %}">Home</a>
-    /
-    <a href="{% url 'acts' %}">海巡常用法規</a>
-    /
-    <a href="{% url 'act_detail' act.slug %}">{{ act }}</a>
-    /
-    <a href="{% url 'chapter_detail' act.slug chapter.number %}">{{ chapter }}</a>
-    /
-    Delete
+    <a href="{% url 'acts' %}">/海巡常用法規</a>
+    <a href="{% url 'act_detail' act.slug %}">/{{ act }}</a>
+    <a href="{% url 'chapter_detail' act.slug chapter.number %}">/{{ chapter }}</a>
+    <u>/Delete</u>
 {% endblock %}
 
 {% block body %}

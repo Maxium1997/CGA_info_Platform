@@ -6,15 +6,12 @@
 {% endblock %}
 
 {% block direction_bar %}
-    <a href="{% url 'index' %}">Home</a>
-    /
-    <a href="{% url 'acts' %}">海巡常用法規</a>
-    /
-    {{ act }}
+    <a href="{% url 'acts' %}">/海巡常用法規</a>
+    <u>/{{ act }}</u>
 {% endblock %}
 
 {% block body %}
-    <div class="container border-left border-success p-4 m-5">
+    <div class="container border-left border-dark p-4 m-5">
         <div class="row">
             <div class="col-12">
                 Name：{{ act }}
@@ -22,6 +19,12 @@
             <div class="col-12">
                 source URL：<a href="{{ act.source_url }}">{{ act.source_url }}</a>
             </div>
+            {% if request.user.is_superuser %}
+            <div class="col-12">
+                <button class="btn btn-outline-warning" onclick="window.location.href='{% url 'chapter_create' act.slug %}'">Chapter+</button>
+                <button class="btn btn-outline-success" onclick="window.location.href='{% url 'article_create' act.slug %}'">Article+</button>
+            </div>
+            {% endif %}
         </div>
     </div>
 
@@ -66,17 +69,4 @@
             {% endif %}
         </div>
     </div>
-    <ul>
-
-
-
-        {% if request.user.is_superuser %}
-            <p>
-                <li><a href="{% url 'chapter_create' act.slug %}">+Added a new chapter</a></li>
-            </p>
-            <p>
-                <li><a href="{% url 'article_create' act.slug %}">+Added a new article</a></li>
-            </p>
-        {% endif %}
-    </ul>
 {% endblock %}
