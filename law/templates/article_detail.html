@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container border-left border-success p-4 m-5">
+    <div class="container border-left border-success">
         <div class="row">
             <div class="col-12">
                 Name：{{ act }}
@@ -26,12 +26,12 @@
         </div>
     </div>
 
-    <div class="container border font-weight-light p-sm-4 m-sm-5">
+    <div class="container border font-weight-light mt-2">
         <div class="row">
-            <div class="col-12 m-4">
+            <div class="col-12">
                 {{ article }}
             </div>
-            <div class="col-12 m-4">
+            <div class="col-12">
                 {{ article.content|linebreaks|safe }}
             </div>
         </div>

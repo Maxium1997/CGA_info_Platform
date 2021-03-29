@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container border-left border-dark p-4 m-5">
+    <div class="container border-left border-dark">
         <div class="row">
             <div class="col-12">
                 Name：{{ act }}
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="container border font-weight-light p-sm-4 m-sm-5">
+    <div class="container border font-weight-light mt-2">
         <div class="row">
             {% if act.chapter_set.count != 0 %}
                 {% for chapter in act.chapter_set.all %}
@@ -39,7 +39,7 @@
                         {% endif %}
                     </div>
 
-                    <div class="container m-5">
+                    <div class="container">
                         <div class="row">
                             {% for article in chapter.article_set.all %}
                                 <div class="col-lg-2">
@@ -55,7 +55,7 @@
 
             {% elif act.article_set.count != 0 %}
                 {% for article in act.article_set.all %}
-                    <div class="container m-3">
+                    <div class="container">
                         <div class="row">
                             <div class="col-lg-1">
                                 <a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a>
