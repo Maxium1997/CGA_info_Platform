@@ -3,6 +3,12 @@ from django import forms
 from law.models import Chapter, Article
 
 
+class SearchForm(forms.Form):
+    search_field = forms.CharField(required=True,
+                                   widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                 'placeholder': 'Enter the key word you want to search...'}))
+
+
 class ChapterCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ChapterCreateForm, self).__init__(*args, **kwargs)

@@ -2,11 +2,13 @@ from django.urls import path, include
 
 from .views import IndexView, ActsView, ActDetailView, ActCreateView,\
     ChapterDetailView, ChapterCreateView, ChapterDeleteView,\
-    ArticleDetailView, ArticleCreateView
+    ArticleDetailView, ArticleCreateView,\
+    search
 
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
+    path('search', search, name='search'),
 
     path('acts/', include([
         path('all', ActsView.as_view(), name='acts'),

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Laws
+{% endblock %}
+
+{% block direction_bar %}
+    <a href="{% url 'acts' %}">/海巡常用法規</a>
+    <u>/Search</u>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <form class="col-8 text-center" method="post" action="{% url 'search' %}">
+                {% csrf_token %}
+                {{ search_form.search_field }}
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for act in searched_acts %}
+                <div class="card m-1 col-12" style="cursor: pointer" onclick="window.location.href='{% url 'act_detail' act.slug %}'">
+                    <div class="card-body">
+                        {{ act }}
+                    </div>
+                </div>
+            {% endfor %}
+            {% for chapter in searched_chapters %}
+                <div class="card m-1 col-12" style="cursor: pointer" onclick="window.location.href='{% url 'chapter_detail' chapter.act.slug chapter.number %}'">
+                    <div class="card-body">
+                        {{ chapter.act }}{{ chapter }}
+                    </div>
+                </div>
+            {% endfor %}
+            {% for article in searched_articles %}
+                <div class="card m-1 col-12" style="cursor: pointer" onclick="window.location.href='{% url 'article_detail' article.act.slug article.number %}'">
+                    <div class="card-title">
+                        {{ article.act }}{{ article }}
+                    </div>
+                    <div class="card-body">
+                        {{ article.content|linebreaks|safe }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

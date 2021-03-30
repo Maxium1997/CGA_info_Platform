@@ -1,10 +1,13 @@
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, DeleteView
 
 from .models import Act, Chapter, Article
-from .forms import ChapterCreateForm, ArticleCreateForm
+from .forms import ChapterCreateForm, ArticleCreateForm, \
+    SearchForm
+from law.engine import act_search, chapter_search, article_search
 # Create your views here.
 
 
@@ -19,7 +22,24 @@ class ActsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['acts'] = self.object_list
+        context['search_form'] = SearchForm()
         return context
+
+
+def search(request):
+    search_form = SearchForm(request.POST)
+    search_field = request.POST.get('search_field')
+
+    searched_acts = act_search(search_field)
+    searched_chapters = chapter_search(search_field)
+    searched_articles = article_search(search_field)
+
+    context = {'search_form': search_form,
+               'searched_acts': searched_acts,
+               'searched_chapters': searched_chapters,
+               'searched_articles': searched_articles}
+
+    return render(request, template_name='search_result.html', context=context)
 
 
 @method_decorator(staff_member_required, name='dispatch')

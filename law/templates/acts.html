@@ -10,6 +10,16 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <form class="col-8 text-center" method="post" action="{% url 'search' %}">
+                {% csrf_token %}
+                {{ search_form.search_field }}
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+            </form>
+        </div>
+    </div>
+
     <ul>
         {% for act in acts %}
         <p>
