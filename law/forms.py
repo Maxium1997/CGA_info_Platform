@@ -38,7 +38,7 @@ class ArticleCreateForm(forms.ModelForm):
                                                                               'class': 'form-control'}))
         self.fields['content'] = forms.CharField(required=True,
                                                  widget=forms.Textarea(attrs={'class': 'form-control'}))
-        self.fields['source_url'] = forms.URLField(required=True,
+        self.fields['source_url'] = forms.URLField(required=False,
                                                    widget=forms.URLInput(attrs={'class': 'form-control'}))
 
     def save(self, commit=True):

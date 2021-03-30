@@ -13,18 +13,33 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ chapter }}</h1>
-    <p>
-        <ul>
-            {% for article in chapter.article_set.all %}
-                <li><a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a></li>
-            {% endfor %}
-        </ul>
-    </p>
+    <div class="container border-left border-dark">
+        <div class="row">
+            <div class="col-12">
+                Name：{{ chapter }}
+            </div>
+            <div class="col-12">
+                source URL：<a href="{{ act.source_url }}">{{ chapter.source_url }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <ul>
+                <li>Summary：{{ chapter.article_set.count }}</li>
+                <li>Articles：</li>
+                <ul>
+                    {% for article in chapter.article_set.all %}
+                        <li><a href="{% url 'article_detail' article.act.slug article.number %}">{{ article }}</a></li>
+                    {% endfor %}
+                </ul>
+            </ul>
+        </div>
+    </div>
     <form method="post">
         {% csrf_token %}
         <div>
-            <p>Are you sure to delete this chapter?</p>
+            <p>Are you sure to delete this chapter including the articles?</p>
         </div>
         <div>
             <button type="submit" class="btn btn-danger">Sure</button>

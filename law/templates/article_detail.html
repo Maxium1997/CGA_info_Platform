@@ -15,10 +15,10 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container border-left border-success">
+    <div class="container border-left border-dark">
         <div class="row">
             <div class="col-12">
-                Name：{{ act }}
+                Name：{{ act }} {{ article }}
             </div>
             <div class="col-12">
                 source URL：<a href="{{ act.source_url }}">{{ act.source_url }}</a>
