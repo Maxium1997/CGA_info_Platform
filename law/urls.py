@@ -22,6 +22,7 @@ urlpatterns = [
             path('<int:number>', ChapterDetailView.as_view(), name='chapter_detail'),
             path('<int:number>/', include([
                 path('delete', ChapterDeleteView.as_view(), name='chapter_delete'),
+                path('article/create', ArticleCreateView.as_view(), name='article_create'),
             ])),
         ])),
 

@@ -131,12 +131,23 @@ class ArticleCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         act = Act.objects.get(slug=self.kwargs['slug'])
+        try:
+            chapter = act.chapter_set.get(number=self.kwargs['number'])
+            context['form'] = ArticleCreateForm(initial={'act': act,
+                                                         'chapter': chapter})
+        except KeyError:
+            context['form'] = ArticleCreateForm(initial={'act': act})
+
         context['act'] = act
-        context['form'] = ArticleCreateForm(initial={'act': act})
         return context
     
     def form_valid(self, form):
         act = Act.objects.get(slug=self.kwargs['slug'])
         form.instance.act = act
+        try:
+            chapter = act.chapter_set.get(number=self.kwargs['number'])
+            form.instance.chapter = chapter
+        except KeyError:
+            pass
         form.save()
         return super(ArticleCreateView, self).form_valid(form)

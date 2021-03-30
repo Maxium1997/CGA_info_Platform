@@ -65,7 +65,11 @@ class Article(models.Model):
         ordering = ['act', 'chapter', 'priority']
 
     def get_absolute_url(self):
-        return reverse('act_detail', kwargs={'slug': self.act.slug})
+        if self.chapter:
+            return reverse('chapter_detail', kwargs={'slug': self.act.slug,
+                                                     'number': self.chapter.number})
+        else:
+            return reverse('act_detail', kwargs={'slug': self.act.slug})
 
     def __str__(self):
         return '第' + str(self.number) + '條'

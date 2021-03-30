@@ -35,9 +35,15 @@ class ChapterCreateForm(forms.ModelForm):
 class ArticleCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ArticleCreateForm, self).__init__(*args, **kwargs)
-        self.fields['chapter'] = forms.ModelChoiceField(queryset=self.initial.get('act').chapter_set.all(),
-                                                        required=False,
-                                                        widget=forms.Select(attrs={'class': 'form-control'}))
+        if self.initial.get('chapter'):
+            self.fields['chapter'] = forms.ModelChoiceField(queryset=self.initial.get('act').chapter_set.filter(id=self.initial.get('chapter').id),
+                                                            required=False,
+                                                            widget=forms.Select(attrs={'class': 'form-control',
+                                                                                       'disabled': 'True'}))
+        else:
+            self.fields['chapter'] = forms.ModelChoiceField(queryset=self.initial.get('act').chapter_set.all(),
+                                                            required=False,
+                                                            widget=forms.Select(attrs={'class': 'form-control'}))
         self.fields['priority'] = forms.CharField(widget=forms.TextInput(attrs={'placeholder': self.initial.get('act').article_set.count()+1,
                                                                                 'class': 'form-control'}))
         self.fields['number'] = forms.CharField(widget=forms.TextInput(attrs={'placeholder': self.initial.get('act').article_set.count()+1,
@@ -50,6 +56,9 @@ class ArticleCreateForm(forms.ModelForm):
     def save(self, commit=True):
         article = super(ArticleCreateForm, self).save(commit=False)
         article.act = self.initial.get('act')
+        if self.initial.get('chapter'):
+            article.chapter = self.initial.get('chapter')
+
         if commit:
             article.save()
         return article

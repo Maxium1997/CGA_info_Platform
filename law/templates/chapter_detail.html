@@ -24,7 +24,7 @@
             <div class="col-12">
                 <button class="btn btn-outline-warning" onclick="window.location.href='{% url 'chapter_create' act.slug %}'">Chapter+</button>
                 <button class="btn btn-outline-danger" onclick="window.location.href='{% url 'chapter_delete' act.slug chapter.number %}'">Chapter-</button>
-                <button class="btn btn-outline-success" onclick="window.location.href='{% url 'article_create' act.slug %}'">Article+</button>
+                <button class="btn btn-outline-success" onclick="window.location.href='{% url 'article_create' act.slug chapter.number %}'">Article+</button>
             </div>
             {% endif %}
         </div>
