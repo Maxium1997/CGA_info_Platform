@@ -12,16 +12,37 @@
 {% endblock %}
 
 {% block body %}
-    <p>
-        <ul>
-            {% for chapter in act.chapter_set.all %}
-                <li>{{ chapter }}</li>
-            {% endfor %}
-        </ul>
-    </p>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">submit</button>
-    </form>
+    <div class="container">
+        <div class="row">
+            <form class="col-md-8" method="post">
+                {% csrf_token %}
+                <div>
+                    <label class="form-label">{{ form.number.label }}</label>
+                    {{ form.number }}
+                </div>
+                <div>
+                    <label class="form-label">{{ form.name.label }}</label>
+                    {{ form.name }}
+                </div>
+                <div>
+                    <label class="form-label">{{ form.source_url.label }}</label>
+                    {{ form.source_url }}
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary mt-2">submit</button>
+                    <button type="button" class="btn btn-secondary mt-2" onclick="history.back()">cancel</button>
+                </div>
+            </form>
+            <div class="col-md-4">
+                {% for chapter in act.chapter_set.all %}
+                    <div class="card m-1">
+                        <div class="card-body">
+                            {{ chapter }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

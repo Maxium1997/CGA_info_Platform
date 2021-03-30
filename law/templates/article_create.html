@@ -12,16 +12,49 @@
 {% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">submit</button>
-    </form>
-    <p>
-        <ul>
-            {% for article in act.article_set.all %}
-                <li>{{ article }}</li>
-            {% endfor %}
-        </ul>
-    </p>
+    <div class="container">
+        <div class="row">
+            <form class="col-md-8" method="post">
+                {% csrf_token %}
+                <div>
+                    <label class="form-label">{{ form.chapter.label }}</label>
+                    {{ form.chapter }}
+                </div>
+                <div>
+                    <label class="form-label">{{ form.priority.label }}</label>
+                    {{ form.priority }}
+                </div>
+                <div>
+                    <label class="form-label">{{ form.number.label }}</label>
+                    {{ form.number }}
+                </div>
+                <div>
+                    <label class="form-label">{{ form.content.label }}</label>
+                    {{ form.content }}
+                </div>
+                <div>
+                    <label class="form-label">{{ form.source_url.label }}</label>
+                    {{ form.source_url }}
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary mt-2">submit</button>
+                    <button type="button" class="btn btn-secondary mt-2" onclick="history.back()">cancel</button>
+                </div>
+            </form>
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="row">
+                        {% for article in act.article_set.all %}
+                            <div class="card m-1">
+                                <div class="card-body">
+                                    {{ article }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
