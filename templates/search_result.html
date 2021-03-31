@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load search_filter %}
 
 {% block title %}
     Laws
@@ -13,11 +14,12 @@
 {% block body %}
     <div class="container">
         <div class="row justify-content-center">
-            <form class="col-8 text-center" method="post" action="{% url 'search' %}">
-                {% csrf_token %}
-                {{ search_form.search_field }}
-                <button type="submit" class="btn btn-primary mt-2">Search</button>
-            </form>
+            <div class="col-lg-8 col-sm-12 text-right">
+                <form method="post" action="{% url 'search' %}">
+                    {% csrf_token %}
+                    {{ search_form.search_field }}
+                </form>
+            </div>
         </div>
     </div>
 
@@ -26,14 +28,14 @@
             {% for act in searched_acts %}
                 <div class="card m-1 col-12" style="cursor: pointer" onclick="window.location.href='{% url 'act_detail' act.slug %}'">
                     <div class="card-body">
-                        {{ act }}
+                        {{ act|mark:keyword }}
                     </div>
                 </div>
             {% endfor %}
             {% for chapter in searched_chapters %}
                 <div class="card m-1 col-12" style="cursor: pointer" onclick="window.location.href='{% url 'chapter_detail' chapter.act.slug chapter.number %}'">
                     <div class="card-body">
-                        {{ chapter.act }}{{ chapter }}
+                        {{ chapter.act }}{{ chapter|mark:keyword }}
                     </div>
                 </div>
             {% endfor %}
@@ -43,10 +45,13 @@
                         {{ article.act }}{{ article }}
                     </div>
                     <div class="card-body">
-                        {{ article.content|linebreaks|safe }}
+                        {{ article.content|mark:keyword|linebreaks|safe }}
                     </div>
                 </div>
             {% endfor %}
+            {% if not searched_acts and not searched_chapters and not searched_articles %}
+                No Result.
+            {% endif %}
         </div>
     </div>
 {% endblock %}

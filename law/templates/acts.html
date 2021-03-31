@@ -12,11 +12,12 @@
 {% block body %}
     <div class="container">
         <div class="row justify-content-center">
-            <form class="col-8 text-center" method="post" action="{% url 'search' %}">
-                {% csrf_token %}
-                {{ search_form.search_field }}
-                <button type="submit" class="btn btn-primary mt-2">Search</button>
-            </form>
+            <div class="col-lg-8 col-sm-12 text-right">
+                <form method="post" action="{% url 'search' %}">
+                    {% csrf_token %}
+                    {{ search_form.search_field }}
+                </form>
+            </div>
         </div>
     </div>
 

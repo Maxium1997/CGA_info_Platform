@@ -28,13 +28,14 @@ class ActsView(ListView):
 
 def search(request):
     search_form = SearchForm(request.POST)
-    search_field = request.POST.get('search_field')
+    keyword = request.POST.get('search_field')
 
-    searched_acts = act_search(search_field)
-    searched_chapters = chapter_search(search_field)
-    searched_articles = article_search(search_field)
+    searched_acts = act_search(keyword)
+    searched_chapters = chapter_search(keyword)
+    searched_articles = article_search(keyword)
 
     context = {'search_form': search_form,
+               'keyword': keyword,
                'searched_acts': searched_acts,
                'searched_chapters': searched_chapters,
                'searched_articles': searched_articles}
